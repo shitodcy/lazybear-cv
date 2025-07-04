@@ -3,7 +3,7 @@
     <div class="container text-center">
       <h3 class="fw-bold">Hubungi Saya</h3>
       <div class="d-flex justify-content-center fs-2 my-4">
-        <a href="https://www.linkedin.com/in/arya-b-698632242/" target="_blank" class="text-body-secondary mx-3">
+        <a href="https://www.linkedin.com/in/arya-p-698632242/" target="_blank" class="text-body-secondary mx-3">
           <i class="bi bi-linkedin"></i>
         </a>
         <a href="https://github.com/shitodcy" target="_blank" class="text-body-secondary mx-3">
