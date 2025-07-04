@@ -1,0 +1,43 @@
+// 1. Definisikan palet warna Dracula
+$dracula-bg:        #282a36; // Background
+$dracula-current:   #44475a; // Current Line (untuk card, navbar, dll)
+$dracula-fg:        #f8f8f2; // Foreground (Teks utama)
+$dracula-comment:   #6272a4; // Comment (Teks sekunder/muted)
+$dracula-cyan:      #8be9fd;
+$dracula-green:     #50fa7b;
+$dracula-orange:    #ffb86c;
+$dracula-pink:      #ff79c6;
+$dracula-purple:    #bd93f9;
+$dracula-red:       #ff5555;
+$dracula-yellow:    #f1fa8c;
+
+// 2. Timpa (override) variabel warna default Bootstrap
+// --- Warna Tema Utama ---
+$primary:       $dracula-purple;
+$secondary:     $dracula-comment;
+$success:       $dracula-green;
+$info:          $dracula-cyan;
+$warning:       $dracula-yellow;
+$danger:        $dracula-red;
+$light:         $dracula-current; // Warna terang kita adalah background komponen
+$dark:          $dracula-bg;      // Warna gelap kita adalah background utama
+
+// --- Warna Body & Teks ---
+$body-bg:       $dracula-bg;
+$body-color:    $dracula-fg;
+$text-muted:    $dracula-comment;
+$link-color:    $dracula-pink;
+$link-hover-color: lighten($dracula-pink, 10%);
+
+// --- Warna Border ---
+$border-color:  $dracula-current;
+
+// --- Kustomisasi Navbar ---
+$navbar-dark-color: rgba($dracula-fg, 0.75);
+$navbar-dark-hover-color: $dracula-fg;
+$navbar-dark-active-color: $dracula-fg;
+$navbar-dark-brand-color: $dracula-fg;
+
+// 3. Impor seluruh library Bootstrap SASS
+// Path ini merujuk ke file di dalam node_modules
+@import "bootstrap/scss/bootstrap";
