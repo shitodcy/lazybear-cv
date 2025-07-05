@@ -3,10 +3,10 @@
     <div class="container text-center">
       <h3 class="fw-bold">Hubungi Saya</h3>
       <div class="d-flex justify-content-center fs-2 my-4">
-        <a href="https://www.linkedin.com/in/arya-p-698632242/" target="_blank" class="text-body-secondary mx-3">
+        <a :href="contacts.linkedin_url" target="_blank" class="text-body-secondary mx-3" v-if="contacts.linkedin_url">
           <i class="bi bi-linkedin"></i>
         </a>
-        <a href="https://github.com/shitodcy" target="_blank" class="text-body-secondary mx-3">
+        <a :href="contacts.github_url" target="_blank" class="text-body-secondary mx-3" v-if="contacts.github_url">
           <i class="bi bi-github"></i>
         </a>
       </div>
@@ -16,3 +16,21 @@
     </div>
   </footer>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+const contacts = ref({});
+
+onMounted(async () => {
+  try {
+    const response = await axios.get('http://localhost:5173/api/cv-data');
+    if (response.data && response.data.contacts) {
+      contacts.value = response.data.contacts;
+    }
+  } catch (error) {
+    console.error('Gagal mengambil data kontak:', error);
+  }
+});
+</script>
