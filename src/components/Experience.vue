@@ -5,28 +5,50 @@
       <hr class="w-25 mx-auto border-primary border-2">
     </div>
     <div class="row g-4">
-      <div class="col-md-12">
+      <div v-if="isLoading" class="text-center">
+        <p>Memuat data pengalaman...</p>
+      </div>
+      <div v-else class="col-md-12" v-for="exp in experiences" :key="exp.id">
         <div class="card h-100 border-secondary">
           <div class="card-body">
-            <h5 class="card-title fw-bold text-primary">IT Support - PKL</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Universitas UNWIDHA</h6>
+            <h5 class="card-title fw-bold text-primary">{{ exp.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ exp.subtitle }}</h6>
             <p class="card-text">
-              Melakukan maintenance dan troubleshooting pada perangkat keras dan perangkat lunak, serta memberikan dukungan teknis kepada pengguna.
+              {{ exp.description }}
             </p>
           </div>
         </div>
       </div>
-      <div class="col-md-12">
-        <div class="card h-100 border-secondary">
-          <div class="card-body">
-            <h5 class="card-title fw-bold text-primary">CTF TCP/IP - Lomba</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Platform CTF Internasional</h6>
-            <p class="card-text">
-              Menyelesaikan tantangan keamanan siber dalam kompetisi Capture The Flag (CTF) yang berfokus pada osint dan web hacking, termasuk analisis paket dan eksploitasi kerentanan.
-            </p>
-          </div>
-        </div>
+      <div v-if="!isLoading && experiences.length === 0" class="text-center">
+        <p>Belum ada data pengalaman untuk ditampilkan.</p>
       </div>
     </div>
   </section>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+// State untuk menyimpan data pengalaman
+const experiences = ref([]);
+// State untuk status loading
+const isLoading = ref(true);
+
+// Fungsi untuk mengambil data dari API saat komponen dimuat
+onMounted(async () => {
+  try {
+    const response = await axios.get('http://localhost:5173/api/cv-data');
+    // Pastikan respons memiliki properti experiences dan merupakan array
+    if (response.data && Array.isArray(response.data.experiences)) {
+      experiences.value = response.data.experiences;
+    }
+  } catch (error) {
+    console.error('Gagal mengambil data pengalaman:', error);
+    // Anda bisa menambahkan penanganan error untuk ditampilkan di UI
+  } finally {
+    // Set loading ke false setelah selesai (baik berhasil maupun gagal)
+    isLoading.value = false;
+  }
+});
+</script>

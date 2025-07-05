@@ -1,4 +1,6 @@
-//palet warna Dracula
+// =======================================================
+// BAGIAN 1: DEFINISI VARIABEL WARNA DRACULA
+// =======================================================
 $dracula-bg:        #282a36;
 $dracula-current:   #44475a;
 $dracula-fg:        #f8f8f2;
@@ -11,31 +13,134 @@ $dracula-purple:    #bd93f9;
 $dracula-red:       #ff5555;
 $dracula-yellow:    #f1fa8c;
 
-// --- Warna Tema Utama ---
+// =======================================================
+// BAGIAN 2: MENIMPA VARIABEL BOOTSTRAP
+// =======================================================
 $primary:       $dracula-purple;
 $secondary:     $dracula-comment;
 $success:       $dracula-green;
 $info:          $dracula-cyan;
-$warning:       $dracula-yellow;
+$warning:       $dracula-orange;
 $danger:        $dracula-red;
 $light:         $dracula-current;
 $dark:          $dracula-bg;
 
-// --- Warna Body & Teks ---
-$body-bg:       $dracula-bg;
+$body-bg:       #212529;
 $body-color:    $dracula-fg;
-$text-muted:    $dracula-comment;
-$link-color:    $dracula-pink;
-$link-hover-color: lighten($dracula-pink, 10%);
+$card-bg:       $dracula-bg;
+$card-border-color: $dracula-current;
+$card-header-bg:    $dracula-bg;
+$card-footer-bg:    $dracula-bg;
 
-// --- Warna Border ---
-$border-color:  $dracula-current;
-
-// --- Kustomisasi Navbar ---
-$navbar-dark-color: rgba($dracula-fg, 0.75);
-$navbar-dark-hover-color: $dracula-fg;
-$navbar-dark-active-color: $dracula-fg;
-$navbar-dark-brand-color: $dracula-fg;
-
-// Path ini merujuk ke file di dalam node_modules
+// Impor Bootstrap
 @import "bootstrap/scss/bootstrap";
+
+// =======================================================
+// BAGIAN 3: GAYA KUSTOM UNTUK LAYOUT DASBOR BARU
+// =======================================================
+body {
+  overflow-x: hidden;
+}
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+// Sidebar
+.dashboard-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background-color: $dracula-bg;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.35s ease-in-out;
+  border-right: 1px solid $dracula-current;
+
+  .sidebar-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $dracula-current;
+    .sidebar-title {
+      color: $dracula-fg;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    color: $dracula-comment;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    transition: background-color 0.2s, color 0.2s;
+
+    i {
+      width: 20px;
+      margin-right: 1rem;
+      text-align: center;
+    }
+
+    &:hover {
+      background-color: $dracula-current;
+      color: $dracula-fg;
+    }
+
+    &.router-link-exact-active {
+      background-color: $dracula-purple;
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba($dracula-purple, 0.3);
+    }
+  }
+}
+
+// Konten Utama
+.dashboard-content {
+  flex-grow: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  transition: margin-left 0.35s ease-in-out;
+}
+
+// Tombol Hamburger (untuk mobile)
+.mobile-menu-toggle {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1050;
+  background-color: $dracula-current;
+  border: none;
+  color: $dracula-fg;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+}
+
+// Desain Responsif
+@media (max-width: 992px) {
+  .dashboard-sidebar {
+    position: fixed;
+    height: 100%;
+    z-index: 1040;
+    margin-left: -260px;
+  }
+  .dashboard-layout.sidebar-open .dashboard-sidebar {
+    margin-left: 0;
+  }
+  .mobile-menu-toggle {
+    display: block;
+  }
+}

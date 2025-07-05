@@ -7,9 +7,25 @@
     <div class="row mt-4">
       <div class="col-md-8 mx-auto text-center">
         <p class="fs-5 text-muted">
-          Saya adalah mahasiswa Informatika semester 4 di Universitas Amikom Jogjakarta. Saya memiliki minat besar dalam dunia Cybersecurity dan IoT. Saya selalu antusias untuk mempelajari hal-hal baru dan berkolaborasi dalam tim untuk menciptakan produk digital yang bermanfaat dan mudah digunakan.
+          {{ aboutContent || 'Memuat data...' }}
         </p>
       </div>
     </div>
   </section>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+const aboutContent = ref('');
+
+onMounted(async () => {
+  try {
+    const response = await axios.get('http://localhost:5173/api/cv-data');
+    aboutContent.value = response.data.about.content;
+  } catch (error) {
+    console.error('Gagal mengambil data:', error);
+  }
+});
+</script>
