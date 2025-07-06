@@ -32,12 +32,12 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import CvDataService from '../../services/cvDataService';
 
 const skills = ref([]);
 
 onMounted(async () => {
-  const response = await axios.get('http://localhost:5173/api/cv-data');
+  const response = await CvDataService.getAllData();
   skills.value = response.data.skills;
 });
 
@@ -46,16 +46,19 @@ const addSkill = () => {
 };
 
 const removeSkill = (index) => {
-    skills.value.splice(index, 1);
+    if (confirm('Anda yakin ingin menghapus keahlian ini?')) {
+        skills.value.splice(index, 1);
+    }
 };
 
 const saveSkills = async () => {
     if (!confirm('Anda yakin ingin menyimpan semua perubahan keahlian?')) return;
     try {
-        await axios.put('http://localhost:5173/api/skills', skills.value);
+        await CvDataService.updateSkills(skills.value);
         alert('Data berhasil disimpan!');
     } catch (error) {
         alert('Gagal menyimpan data.');
+        console.error(error);
     }
 };
 </script>

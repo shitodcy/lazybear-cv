@@ -33,12 +33,11 @@ import Footer from './components/Footer.vue';
 </template>
 
 <style>
-/* Pindahkan padding section ke kelas di dalam komponen untuk konsistensi */
+
 .main-content {
-  margin-top: 70px; /* Sesuaikan dengan tinggi navbar Anda */
+  margin-top: 70px;
 }
 
-/* Garis pemisah antar-section yang halus */
 .section-divider {
   border-top: 1px solid var(--bs-secondary);
   opacity: 0.2;

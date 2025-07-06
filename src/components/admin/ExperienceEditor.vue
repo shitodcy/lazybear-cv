@@ -33,12 +33,12 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import CvDataService from '../../services/cvDataService';
 
 const experiences = ref([]);
 
 onMounted(async () => {
-  const response = await axios.get('http://localhost:5173/api/cv-data');
+  const response = await CvDataService.getAllData();
   experiences.value = response.data.experiences;
 });
 
@@ -47,16 +47,19 @@ const addExperience = () => {
 };
 
 const removeExperience = (index) => {
-    experiences.value.splice(index, 1);
+    if (confirm('Anda yakin ingin menghapus pengalaman ini?')) {
+        experiences.value.splice(index, 1);
+    }
 };
 
 const saveExperiences = async () => {
     if (!confirm('Anda yakin ingin menyimpan semua perubahan pengalaman?')) return;
     try {
-        await axios.put('http://localhost:5173/api/experiences', experiences.value);
+        await CvDataService.updateExperiences(experiences.value);
         alert('Data berhasil disimpan!');
     } catch (error) {
         alert('Gagal menyimpan data.');
+        console.error(error);
     }
 };
 </script>

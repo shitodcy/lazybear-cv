@@ -27,13 +27,13 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import CvDataService from '../../services/cvDataService';
 
 const contacts = ref({ linkedin_url: '', github_url: '' });
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:5173/api/cv-data');
+    const response = await CvDataService.getAllData();
     contacts.value = response.data.contacts;
   } catch (error) {
     console.error('Gagal mengambil data:', error);
@@ -43,10 +43,11 @@ onMounted(async () => {
 const saveContact = async () => {
   if (!confirm('Anda yakin ingin menyimpan perubahan?')) return;
   try {
-    await axios.put('http://localhost:5173/api/contacts', contacts.value);
+    await CvDataService.updateContacts(contacts.value);
     alert('Data berhasil disimpan!');
   } catch (error) {
     alert('Gagal menyimpan data.');
+    console.error(error);
   }
 };
 </script>

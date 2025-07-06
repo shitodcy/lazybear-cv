@@ -1,6 +1,3 @@
-// =======================================================
-// BAGIAN 1: DEFINISI VARIABEL WARNA DRACULA
-// =======================================================
 $dracula-bg:        #282a36;
 $dracula-current:   #44475a;
 $dracula-fg:        #f8f8f2;
@@ -13,37 +10,27 @@ $dracula-purple:    #bd93f9;
 $dracula-red:       #ff5555;
 $dracula-yellow:    #f1fa8c;
 
-// =======================================================
-// BAGIAN 2: MENIMPA VARIABEL BOOTSTRAP
-// =======================================================
 $primary:       $dracula-purple;
 $secondary:     $dracula-comment;
 $success:       $dracula-green;
 $info:          $dracula-cyan;
 $warning:       $dracula-orange;
 $danger:        $dracula-red;
-$light:         $dracula-current; // bg-light akan menjadi warna gelap
+$light:         $dracula-current;
 $dark:          $dracula-bg;
 
-// Ubah warna dasar body dan komponen
-$body-bg:       #212529; // Sedikit lebih gelap dari background kartu
+$body-bg:       #212529;
 $body-color:    $dracula-fg;
 $card-bg:       $dracula-bg;
-$card-border-color: transparent; // Hilangkan border kartu standar
-$card-border-radius: 12px; // Buat sudut lebih tumpul
+$card-border-color: transparent;
+$card-border-radius: 12px;
 $card-header-bg:    $dracula-bg;
 $card-footer-bg:    $dracula-bg;
 $navbar-dark-color: $dracula-comment;
 $navbar-dark-hover-color: $dracula-fg;
 
-// Impor Bootstrap untuk menerapkan variabel di atas
 @import "bootstrap/scss/bootstrap";
 
-// =======================================================
-// BAGIAN 3: GAYA KUSTOM UNTUK LAYOUT DASBOR (SUDAH BAIK)
-// =======================================================
-// ... (Kode dashboard Anda dari file asli bisa diletakkan di sini)
-// Saya akan meringkasnya karena tidak ada perubahan signifikan
 .dashboard-layout {
   display: flex;
   min-height: 100vh;
@@ -128,22 +115,15 @@ $navbar-dark-hover-color: $dracula-fg;
   }
 }
 
-
-// =======================================================
-// BAGIAN 4: EFEK INTERAKTIF DAN PENYEMPURNAAN GLOBAL
-// =======================================================
-
-// Transisi halus untuk semua elemen
 * {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 body {
   overflow-x: hidden;
-  scroll-behavior: smooth; // Animasi scroll saat klik link navbar
+  scroll-behavior: smooth;
 }
 
-// Efek bayangan yang lebih baik untuk Navbar
 .navbar.fixed-top {
   background-color: rgba($dracula-bg, 0.85) !important;
   backdrop-filter: blur(10px);
@@ -151,7 +131,6 @@ body {
   border-bottom: 1px solid $dracula-current;
 }
 
-// Efek interaktif untuk semua kartu
 .card {
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -162,7 +141,6 @@ body {
   }
 }
 
-// Efek untuk tombol
 .btn {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   &:hover {
@@ -174,7 +152,6 @@ body {
   box-shadow: 0 5px 15px rgba($dracula-purple, 0.3);
 }
 
-// Pastikan warna link di footer juga sesuai
 footer a.text-body-secondary {
   transition: color 0.2s ease;
   &:hover {
@@ -182,11 +159,24 @@ footer a.text-body-secondary {
   }
 }
 
-// Sedikit gaya tambahan untuk badge skill
 .badge {
-  transition: all 0.2s ease;
+  transition: all 0.25s ease-in-out;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9em;
+  
   &:hover {
-    transform: scale(1.1);
-    filter: brightness(1.2);
+    transform: translateY(-4px) scale(1.1);
+    filter: brightness(1.25);
   }
 }
+
+// Efek Glow spesifik berdasarkan kategori
+.badge.bg-primary:hover {
+  box-shadow: 0 8px 20px rgba($dracula-purple, 0.35);
+}
+
+.badge.bg-secondary:hover {
+  box-shadow: 0 8px 20px rgba($dracula-cyan, 0.3);
+}
+
