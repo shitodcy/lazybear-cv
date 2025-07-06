@@ -21,6 +21,12 @@
             <small class="text-muted ps-3">MANAJEMEN KONTEN</small>
           </li>
           <li>
+            <router-link to="/admin/profile" class="sidebar-link" @click="hideSidebarOnMobile">
+              <i class="fas fa-id-card"></i>
+              <span>Profil</span>
+            </router-link>
+          </li>
+          <li>
             <router-link to="/admin/about" class="sidebar-link" @click="hideSidebarOnMobile">
               <i class="fas fa-user"></i>
               <span>Tentang Saya</span>
@@ -76,24 +82,19 @@ const toggleSidebar = () => {
   isSidebarHidden.value = !isSidebarHidden.value;
 };
 
-// Fungsi untuk menutup sidebar secara otomatis setelah link di-klik pada mode mobile
 const hideSidebarOnMobile = () => {
   if (window.innerWidth <= 992) {
     isSidebarHidden.value = true;
   }
 };
 
-// Fungsi Logout
 const logout = () => {
   if (confirm('Anda yakin ingin logout?')) {
-    // Menghapus flag login sederhana dari localStorage
-    localStorage.removeItem('isLoggedIn');
-    // Arahkan kembali ke halaman login
+    localStorage.removeItem('user-token');
     router.push('/login');
   }
 };
 
-// Logika untuk menampilkan/menyembunyikan sidebar berdasarkan ukuran layar awal
 onMounted(() => {
   if (window.innerWidth > 992) {
     isSidebarHidden.value = false;

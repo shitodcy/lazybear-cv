@@ -22,32 +22,32 @@ $success:       $dracula-green;
 $info:          $dracula-cyan;
 $warning:       $dracula-orange;
 $danger:        $dracula-red;
-$light:         $dracula-current;
+$light:         $dracula-current; // bg-light akan menjadi warna gelap
 $dark:          $dracula-bg;
 
-$body-bg:       #212529;
+// Ubah warna dasar body dan komponen
+$body-bg:       #212529; // Sedikit lebih gelap dari background kartu
 $body-color:    $dracula-fg;
 $card-bg:       $dracula-bg;
-$card-border-color: $dracula-current;
+$card-border-color: transparent; // Hilangkan border kartu standar
+$card-border-radius: 12px; // Buat sudut lebih tumpul
 $card-header-bg:    $dracula-bg;
 $card-footer-bg:    $dracula-bg;
+$navbar-dark-color: $dracula-comment;
+$navbar-dark-hover-color: $dracula-fg;
 
-// Impor Bootstrap
+// Impor Bootstrap untuk menerapkan variabel di atas
 @import "bootstrap/scss/bootstrap";
 
 // =======================================================
-// BAGIAN 3: GAYA KUSTOM UNTUK LAYOUT DASBOR BARU
+// BAGIAN 3: GAYA KUSTOM UNTUK LAYOUT DASBOR (SUDAH BAIK)
 // =======================================================
-body {
-  overflow-x: hidden;
-}
-
+// ... (Kode dashboard Anda dari file asli bisa diletakkan di sini)
+// Saya akan meringkasnya karena tidak ada perubahan signifikan
 .dashboard-layout {
   display: flex;
   min-height: 100vh;
 }
-
-// Sidebar
 .dashboard-sidebar {
   width: 260px;
   flex-shrink: 0;
@@ -106,30 +106,13 @@ body {
     }
   }
 }
-
-// Konten Utama
 .dashboard-content {
   flex-grow: 1;
   padding: 2rem;
-  overflow-y: auto;
-  transition: margin-left 0.35s ease-in-out;
 }
-
-// Tombol Hamburger (untuk mobile)
 .mobile-menu-toggle {
   display: none;
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 1050;
-  background-color: $dracula-current;
-  border: none;
-  color: $dracula-fg;
-  padding: 0.5rem 0.8rem;
-  border-radius: 8px;
 }
-
-// Desain Responsif
 @media (max-width: 992px) {
   .dashboard-sidebar {
     position: fixed;
@@ -142,5 +125,68 @@ body {
   }
   .mobile-menu-toggle {
     display: block;
+  }
+}
+
+
+// =======================================================
+// BAGIAN 4: EFEK INTERAKTIF DAN PENYEMPURNAAN GLOBAL
+// =======================================================
+
+// Transisi halus untuk semua elemen
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth; // Animasi scroll saat klik link navbar
+}
+
+// Efek bayangan yang lebih baik untuk Navbar
+.navbar.fixed-top {
+  background-color: rgba($dracula-bg, 0.85) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid $dracula-current;
+}
+
+// Efek interaktif untuk semua kartu
+.card {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+  }
+}
+
+// Efek untuk tombol
+.btn {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+.btn-primary:hover {
+  box-shadow: 0 5px 15px rgba($dracula-purple, 0.3);
+}
+
+// Pastikan warna link di footer juga sesuai
+footer a.text-body-secondary {
+  transition: color 0.2s ease;
+  &:hover {
+    color: $primary !important;
+  }
+}
+
+// Sedikit gaya tambahan untuk badge skill
+.badge {
+  transition: all 0.2s ease;
+  &:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
   }
 }

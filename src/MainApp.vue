@@ -10,20 +10,39 @@ import Footer from './components/Footer.vue';
 
 <template>
   <Navbar />
-  <div class="container mt-5 pt-5">
-    <Hero id="profil" />
-    <About id="tentang" />
-    <Experience id="pengalaman" />
-    <Education id="pendidikan" />
-    <Skills id="skill" />
-  </div>
+
+  <main class="main-content">
+    <div class="container">
+      <Hero id="profil" class="py-5" />
+
+      <div class="section-divider"></div>
+      <About id="tentang" class="py-5" />
+
+      <div class="section-divider"></div>
+      <Experience id="pengalaman" class="py-5" />
+
+      <div class="section-divider"></div>
+      <Education id="pendidikan" class="py-5" />
+
+      <div class="section-divider"></div>
+      <Skills id="skill" class="py-5" />
+    </div>
+  </main>
+
   <Footer id="kontak" />
 </template>
 
 <style>
-/* Tambahkan sedikit padding antar section untuk jarak */
-section {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+/* Pindahkan padding section ke kelas di dalam komponen untuk konsistensi */
+.main-content {
+  margin-top: 70px; /* Sesuaikan dengan tinggi navbar Anda */
+}
+
+/* Garis pemisah antar-section yang halus */
+.section-divider {
+  border-top: 1px solid var(--bs-secondary);
+  opacity: 0.2;
+  margin: 2rem auto;
+  width: 50%;
 }
 </style>

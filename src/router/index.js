@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 // Impor komponen-komponen utama
 import MainApp from '../MainApp.vue';
 import AdminLayout from '../components/admin/AdminLayout.vue';
-import Login from '../views/Login.vue'; // <-- Pastikan file ini ada di src/views/Login.vue
+import Login from '../views/Login.vue';
 
 // Impor komponen halaman dasbor
 import DashboardHome from '../components/admin/DashboardHome.vue';
@@ -12,32 +12,30 @@ import ExperienceEditor from '../components/admin/ExperienceEditor.vue';
 import EducationEditor from '../components/admin/EducationEditor.vue';
 import SkillsEditor from '../components/admin/SkillsEditor.vue';
 import ContactEditor from '../components/admin/ContactEditor.vue';
+// Impor komponen baru
+import ProfileEditor from '../components/admin/ProfileEditor.vue';
 
 const routes = [
-  // Rute untuk halaman CV Publik
   { 
     path: '/', 
     name: 'CV', 
     component: MainApp 
   },
-  // Rute untuk halaman Login
   { 
     path: '/login', 
     name: 'Login', 
-    component: Login // <-- Menunjuk ke komponen Login
+    component: Login
   },
-  // Rute untuk area Admin yang dilindungi
   {
     path: '/admin',
     component: AdminLayout,
     redirect: '/admin/dashboard',
     beforeEnter: (to, from, next) => {
-      // Logika keamanan Anda akan ada di sini
-      // Untuk sementara, kita izinkan masuk untuk tes
       next(); 
     },
     children: [
       { path: 'dashboard', component: DashboardHome },
+      { path: 'profile', component: ProfileEditor }, // <-- RUTE BARU DITAMBAHKAN DI SINI
       { path: 'about', component: AboutEditor },
       { path: 'experience', component: ExperienceEditor },
       { path: 'education', component: EducationEditor },
