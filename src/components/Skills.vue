@@ -1,23 +1,23 @@
 <template>
   <section id="skill" class="bg-light rounded-3 p-5">
     <div class="text-center mb-5">
-      <h2 class="fw-bold">Keahlian</h2>
-      <hr class="w-25 mx-auto border-primary border-2">
+      <h2 class="fw-bold" data-aos="fade-down">Keahlian</h2>
+      <hr class="w-25 mx-auto border-primary border-2" data-aos="fade-up">
     </div>
     <div v-if="isLoading" class="text-center">
         <p>Memuat data keahlian...</p>
     </div>
     <div v-else class="row text-center">
-      <div class="col-md-6 mb-4">
+      <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
         <h5 class="fw-bold">Desain</h5>
-        <span v-for="skill in designSkills" :key="skill.id" class="badge rounded-pill bg-primary p-2 px-3 m-1">
+        <span v-for="(skill, index) in designSkills" :key="skill.id" class="badge rounded-pill bg-primary p-2 px-3 m-1" data-aos="zoom-in" :data-aos-delay="100 * index">
           {{ skill.name }}
         </span>
         <p v-if="designSkills.length === 0" class="text-muted mt-2">Tidak ada keahlian di kategori ini.</p>
       </div>
-      <div class="col-md-6 mb-4">
+      <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
         <h5 class="fw-bold">Lainnya</h5>
-        <span v-for="skill in otherSkills" :key="skill.id" class="badge rounded-pill bg-secondary p-2 px-3 m-1">
+        <span v-for="(skill, index) in otherSkills" :key="skill.id" class="badge rounded-pill bg-secondary p-2 px-3 m-1" data-aos="zoom-in" :data-aos-delay="100 * index">
           {{ skill.name }}
         </span>
          <p v-if="otherSkills.length === 0" class="text-muted mt-2">Tidak ada keahlian di kategori ini.</p>
@@ -58,3 +58,7 @@ const otherSkills = computed(() => {
   return allSkills.value.filter(skill => skill.category === 'Lainnya');
 });
 </script>
+
+<style scoped>
+/* Efek hover untuk badge sudah ditambahkan di main.scss */
+</style>
