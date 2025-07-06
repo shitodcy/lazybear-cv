@@ -5,7 +5,6 @@ const apiClient = axios.create({
   baseURL: '/api',
 });
 
-// Interceptor untuk MENAMBAHKAN token ke header setiap request
 apiClient.interceptors.request.use(config => {
   const token = localStorage.getItem('user-token');
   if (token) {
@@ -14,7 +13,6 @@ apiClient.interceptors.request.use(config => {
   return config;
 }, error => Promise.reject(error));
 
-// Interceptor untuk menangani respons error (misal: token kedaluwarsa)
 apiClient.interceptors.response.use(
   response => response,
   error => {

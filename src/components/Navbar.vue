@@ -8,19 +8,19 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#tentang">Tentang Saya</a>
+            <a class="nav-link" href="#tentang">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#pengalaman">Pengalaman</a>
+            <a class="nav-link" href="#pengalaman">Experience</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#pendidikan">Pendidikan</a>
+            <a class="nav-link" href="#pendidikan">Education</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#skill">Skill</a>
+            <a class="nav-link" href="#skill">Skills</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#kontak">Kontak</a>
+            <a class="nav-link" href="#kontak">Contact</a>
           </li>
         </ul>
       </div>

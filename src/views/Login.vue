@@ -32,8 +32,8 @@ import { ref } from 'vue';
 import apiClient from '../api/axios';
 import { useRouter } from 'vue-router';
 
-const username = ref('finaladmin');
-const password = ref('finalpassword123');
+const username = ref('');
+const password = ref('');
 const errorMessage = ref('');
 const loading = ref(false);
 const router = useRouter();

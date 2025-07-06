@@ -1,5 +1,3 @@
-// File: server.cjs (Versi Baru - Base64)
-
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
@@ -8,19 +6,17 @@ const bcrypt = require('bcryptjs');
 
 const app = express();
 app.use(cors());
-// Tingkatkan limit agar bisa menerima data Base64 yang besar
 app.use(express.json({ limit: '10mb' }));
 
 const dbConfig = {
   host: 'localhost',
   user: 'root',
-  password: 'newpassword', // SESUAIKAN JIKA PERLU
+  password: 'newpassword',
   database: 'cv_database'
 };
 
 const JWT_SECRET = 'kunci-rahasia-super-aman-yang-harus-diganti-segera';
 
-// Rute Login
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -48,7 +44,6 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// Middleware Token
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -60,7 +55,6 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-// Rute GET Data, sekarang mengambil dari user_profile
 app.get('/api/cv-data', async (req, res) => {
   try {
     const connection = await mysql.createConnection(dbConfig);
@@ -71,8 +65,7 @@ app.get('/api/cv-data', async (req, res) => {
     const [skills] = await connection.query('SELECT * FROM skills ORDER BY id');
     const [contacts] = await connection.query('SELECT * FROM contacts LIMIT 1');
     await connection.end();
-    
-    // Ganti nama field agar sesuai dengan frontend
+
     const heroData = profile[0] ? { name: profile[0].user_name, imageUrl: profile[0].user_avatar } : {};
 
     res.json({
@@ -88,7 +81,6 @@ app.get('/api/cv-data', async (req, res) => {
   }
 });
 
-// RUTE UPDATE PROFIL BARU (METODE BASE64)
 app.put('/api/profile', verifyToken, async (req, res) => {
   const { name, imageUrl } = req.body; 
 
@@ -117,31 +109,24 @@ app.put('/api/profile', verifyToken, async (req, res) => {
   }
 });
 
-
-// Ganti fungsi createUpdateHandler yang lama dengan yang ini
 const createUpdateHandler = (tableName, fields) => async (req, res) => {
   const connection = await mysql.createConnection(dbConfig);
   try {
     await connection.beginTransaction();
 
-    // Logika untuk tabel yang hanya punya satu baris (UPDATE)
     if (tableName === 'about' || tableName === 'contacts') {
       const data = req.body;
       const values = fields.map(field => data[field]);
       const setClauses = fields.map(field => `${field} = ?`).join(', ');
       await connection.query(`UPDATE ${tableName} SET ${setClauses} WHERE id = 1`, values);
     } 
-    // Logika untuk tabel yang punya banyak baris (DELETE lalu INSERT)
+
     else {
-      const data = req.body; // Data dari frontend adalah array of objects
-      
-      // 1. Hapus semua data lama dari tabel
+      const data = req.body;
       await connection.query(`DELETE FROM ${tableName}`);
-      
-      // 2. Masukkan kembali semua data baru dari frontend
+
       if (data && data.length > 0) {
         for (const item of data) {
-          // Pastikan item (baris data) yang dikirim tidak kosong
           if (Object.keys(item).length > 0 && fields.every(field => item[field] !== undefined)) { 
             const values = fields.map(field => item[field]);
             const placeholders = fields.map(() => '?').join(',');
@@ -155,7 +140,7 @@ const createUpdateHandler = (tableName, fields) => async (req, res) => {
     res.json({ message: `${tableName} berhasil diperbarui` });
   } catch (error) {
     await connection.rollback();
-    console.error(`Error updating ${tableName}:`, error); // Log error di backend
+    console.error(`Error updating ${tableName}:`, error);
     res.status(500).json({ message: `Gagal memperbarui ${tableName}`, error: error.message });
   } finally {
     if (connection) await connection.end();

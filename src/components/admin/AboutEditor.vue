@@ -22,7 +22,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import CvDataService from '../../services/cvDataService'; // <-- Impor service baru
+import CvDataService from '../../services/cvDataService';
 
 const aboutContent = ref('');
 
